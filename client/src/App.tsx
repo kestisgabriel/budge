@@ -1,9 +1,20 @@
+import { useState } from "react";
 import "./App.css";
 
 function App() {
+	const [count, setCount] = useState(0);
+
 	return (
 		<>
-			<div>Frontend</div>
+			<div className="card">
+				<button onClick={() => setCount((count) => count + 1)}>
+					up
+				</button>
+				<button onClick={() => setCount((count) => count - 1)}>
+					down
+				</button>
+			</div>
+			<p>{count}</p>
 		</>
 	);
 }
