@@ -13,13 +13,19 @@ const dummyExpenses: Expense[] = [
 	{ id: 3, title: "Utilities", amount: 75.3 },
 ];
 
+const createExpenseSchema = z.object({
+	title: z.string(),
+	amount: z.number(),
+});
+
 // exprense routes defined
 export const expensesRoute = new Hono()
 	.get("/", (c) => {
 		return c.json({ expenses: dummyExpenses });
 	})
 	.post("/", async (c) => {
-		const expense = await c.req.json();
+		const data = await c.req.json();
+		const expense = createExpenseSchema.parse(data);
 		return c.json(expense);
 	});
 
