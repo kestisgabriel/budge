@@ -19,9 +19,7 @@ export const expensesRoute = new Hono()
 		return c.json({ expenses: dummyExpenses });
 	})
 	.post("/", async (c) => {
-		// c.res.json gives json data posted to endpoint
 		const expense = await c.req.json();
-		console.log(expense);
 		return c.json(expense);
 	});
 
