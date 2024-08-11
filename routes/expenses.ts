@@ -28,6 +28,14 @@ export const expensesRoute = new Hono()
 		const expense = await c.req.valid("json");
 		dummyExpenses.push({ ...expense, id: dummyExpenses.length + 1 });
 		return c.json(expense);
+	})
+	.get("/:id{[0-9]+}", (c) => {
+		const id = Number.parseInt(c.req.param("id"));
+		const expense = dummyExpenses.find((expense) => expense.id === id);
+		if (!expense) {
+			return c.notFound();
+		}
+		return c.json(expense);
 	});
 
 // TODO:
