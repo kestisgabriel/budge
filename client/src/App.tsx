@@ -1,21 +1,24 @@
 import { useState } from "react";
-import { Button } from "./components/ui/button";
-import "./App.css";
+import {
+	Card,
+	CardContent,
+	CardDescription,
+	CardHeader,
+	CardTitle,
+} from "@/components/ui/card";
 
 function App() {
-	const [count, setCount] = useState(0);
+	const [totalSpent, setTotalSpent] = useState(0);
 
 	return (
 		<>
-			<div className="flex flex-col bg-background max-w-md m-auto gap-y-5">
-				<Button onClick={() => setCount((count) => count + 1)}>
-					up
-				</Button>
-				<Button onClick={() => setCount((count) => count - 1)}>
-					down
-				</Button>
-			</div>
-			<p>{count}</p>
+			<Card className="w-[350px] m-auto">
+				<CardHeader>
+					<CardTitle>Total Spent</CardTitle>
+					<CardDescription>Total amount you've spent</CardDescription>
+				</CardHeader>
+				<CardContent>{totalSpent}</CardContent>
+			</Card>
 		</>
 	);
 }
