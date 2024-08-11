@@ -1,21 +1,21 @@
 {
-  "name": "budge",
-  "module": "index.ts",
-  "type": "module",
-  "scripts": {
-    "start": "bun index.ts",
-    "dev": "bun --watch index.ts",
-    "c": "./c.sh"
-  },
-  "devDependencies": {
-    "@types/bun": "latest"
-  },
-  "peerDependencies": {
-    "typescript": "^5.0.0"
-  },
-  "dependencies": {
-    "@hono/zod-validator": "^0.2.2",
-    "hono": "^4.5.5",
-    "zod": "^3.23.8"
-  }
+	"name": "budge",
+	"module": "server/index.ts",
+	"type": "module",
+	"scripts": {
+		"start": "bun server/index.ts",
+		"dev": "bun --watch server/index.ts",
+		"c": "./c.sh"
+	},
+	"devDependencies": {
+		"@types/bun": "latest"
+	},
+	"peerDependencies": {
+		"typescript": "^5.0.0"
+	},
+	"dependencies": {
+		"@hono/zod-validator": "^0.2.2",
+		"hono": "^4.5.5",
+		"zod": "^3.23.8"
+	}
 }
