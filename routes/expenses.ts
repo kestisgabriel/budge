@@ -15,10 +15,13 @@ const dummyExpenses: Expense[] = [
 // exprense routes defined
 export const expensesRoute = new Hono()
 	.get("/", (c) => {
-		return c.json({ expenses: [] });
+		return c.json({ expenses: dummyExpenses });
 	})
-	.post("/", (c) => {
-		return c.json({});
+	.post("/", async (c) => {
+		// c.res.json gives json data posted to endpoint
+		const expense = await c.req.json();
+		console.log(expense);
+		return c.json(expense);
 	});
 
 // TODO:
