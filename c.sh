@@ -1,7 +1,7 @@
 #!/bin/bash
-commit_message="$1"
+read -p "Enter the commit message: " commit_message
 git add .
-git commit -m $commit_message
+git commit -m "$commit_message"
 
-# permission to run script
+# if no permission to run script, then run this command:
 # chmod +x c.sh
