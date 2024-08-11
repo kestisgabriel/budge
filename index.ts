@@ -1,6 +1,7 @@
 import app from "./app";
 
 Bun.serve({
+	// hono server
 	fetch: app.fetch,
 });
 
