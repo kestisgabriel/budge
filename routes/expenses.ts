@@ -18,7 +18,7 @@ const createExpenseSchema = z.object({
 	amount: z.number(),
 });
 
-// exprense routes defined
+// expense routes defined
 export const expensesRoute = new Hono()
 	.get("/", (c) => {
 		return c.json({ expenses: dummyExpenses });
