@@ -1,7 +1,7 @@
+import app from "./app";
+
 Bun.serve({
-	fetch(req) {
-		return new Response("404!");
-	},
+	fetch: app.fetch,
 });
 
 console.log("Hello via Bun!");
