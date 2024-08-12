@@ -11,10 +11,28 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as ExpensesImport } from './routes/expenses'
+import { Route as DeleteExpenseImport } from './routes/delete-expense'
+import { Route as CreateExpenseImport } from './routes/create-expense'
 import { Route as AboutImport } from './routes/about'
 import { Route as IndexImport } from './routes/index'
 
 // Create/Update Routes
+
+const ExpensesRoute = ExpensesImport.update({
+  path: '/expenses',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const DeleteExpenseRoute = DeleteExpenseImport.update({
+  path: '/delete-expense',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const CreateExpenseRoute = CreateExpenseImport.update({
+  path: '/create-expense',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const AboutRoute = AboutImport.update({
   path: '/about',
@@ -44,12 +62,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutImport
       parentRoute: typeof rootRoute
     }
+    '/create-expense': {
+      id: '/create-expense'
+      path: '/create-expense'
+      fullPath: '/create-expense'
+      preLoaderRoute: typeof CreateExpenseImport
+      parentRoute: typeof rootRoute
+    }
+    '/delete-expense': {
+      id: '/delete-expense'
+      path: '/delete-expense'
+      fullPath: '/delete-expense'
+      preLoaderRoute: typeof DeleteExpenseImport
+      parentRoute: typeof rootRoute
+    }
+    '/expenses': {
+      id: '/expenses'
+      path: '/expenses'
+      fullPath: '/expenses'
+      preLoaderRoute: typeof ExpensesImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
 // Create and export the route tree
 
-export const routeTree = rootRoute.addChildren({ IndexRoute, AboutRoute })
+export const routeTree = rootRoute.addChildren({
+  IndexRoute,
+  AboutRoute,
+  CreateExpenseRoute,
+  DeleteExpenseRoute,
+  ExpensesRoute,
+})
 
 /* prettier-ignore-end */
 
@@ -60,7 +105,10 @@ export const routeTree = rootRoute.addChildren({ IndexRoute, AboutRoute })
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/about"
+        "/about",
+        "/create-expense",
+        "/delete-expense",
+        "/expenses"
       ]
     },
     "/": {
@@ -68,6 +116,15 @@ export const routeTree = rootRoute.addChildren({ IndexRoute, AboutRoute })
     },
     "/about": {
       "filePath": "about.tsx"
+    },
+    "/create-expense": {
+      "filePath": "create-expense.tsx"
+    },
+    "/delete-expense": {
+      "filePath": "delete-expense.tsx"
+    },
+    "/expenses": {
+      "filePath": "expenses.tsx"
     }
   }
 }
