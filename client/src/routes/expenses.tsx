@@ -64,9 +64,9 @@ function Expenses() {
 						: data?.expenses.map((expense) => (
 								<TableRow key={expense.id}>
 									<TableCell className="font-medium">
-										{expense.title}
+										{expense.id}
 									</TableCell>
-									<TableCell>{expense.amount}</TableCell>
+									<TableCell>{expense.title}</TableCell>
 									<TableCell className="text-right">
 										{expense.amount}
 									</TableCell>
