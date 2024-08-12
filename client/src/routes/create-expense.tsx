@@ -15,13 +15,13 @@ function CreateExpense() {
 			amount: 0
 		},
 		onSubmit: async ({ value }) => {
-			await new Promise((r) => setTimeout(r, 3000))
+			await new Promise((r) => setTimeout(r, 1000))
 			console.log(value)
 		}
 	})
 
 	return (
-		<div className="p=2">
+		<div className="p-2">
 			<h2>Create Expense</h2>
 			<form
 				className="max-w-xl m-auto"
