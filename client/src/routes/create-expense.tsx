@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'
@@ -10,6 +10,7 @@ export const Route = createFileRoute('/create-expense')({
 })
 
 function CreateExpense() {
+	const navigate = useNavigate()
 	const form = useForm({
 		defaultValues: {
 			title: '',
@@ -21,6 +22,7 @@ function CreateExpense() {
 			if (!res.ok) {
 				throw new Error('Server error')
 			}
+			navigate({ to: '/expenses' })
 		}
 	})
 
