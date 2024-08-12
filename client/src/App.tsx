@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
 	Card,
 	CardContent,
@@ -9,6 +9,12 @@ import {
 
 function App() {
 	const [totalSpent, setTotalSpent] = useState(0);
+
+	useEffect(() => {
+		fetch("/api/expenses/total-spent")
+			.then((response) => response.json())
+			.then((data) => setTotalSpent(data.totalSpent));
+	}, []);
 
 	return (
 		<>
