@@ -6,11 +6,11 @@ import {
 	CardContent,
 	CardDescription,
 	CardHeader,
-	CardTitle,
+	CardTitle
 } from '@/components/ui/card'
 
 export const Route = createFileRoute('/')({
-	component: Index,
+	component: Index
 })
 
 async function getTotalSpent() {
@@ -25,7 +25,7 @@ async function getTotalSpent() {
 function Index() {
 	const { isPending, error, data } = useQuery({
 		queryKey: ['get-total-spent'],
-		queryFn: getTotalSpent,
+		queryFn: getTotalSpent
 	})
 
 	if (isPending) return 'Loading...'
