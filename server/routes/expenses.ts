@@ -5,7 +5,7 @@ import { zValidator } from '@hono/zod-validator'
 const expenseSchema = z.object({
 	id: z.number().int().positive().min(1),
 	title: z.string().min(3).max(100),
-	amount: z.number().int().positive(),
+	amount: z.number().int().positive()
 })
 
 type Expense = z.infer<typeof expenseSchema>
@@ -15,7 +15,7 @@ const createExpenseSchema = expenseSchema.omit({ id: true })
 const dummyExpenses: Expense[] = [
 	{ id: 1, title: 'Groceries', amount: 120.5 },
 	{ id: 2, title: 'Rent', amount: 950.0 },
-	{ id: 3, title: 'Utilities', amount: 75.3 },
+	{ id: 3, title: 'Utilities', amount: 75.3 }
 ]
 
 // expense routes defined
