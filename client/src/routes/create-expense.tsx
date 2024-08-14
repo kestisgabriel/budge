@@ -17,7 +17,6 @@ function CreateExpense() {
 			amount: 0
 		},
 		onSubmit: async ({ value }) => {
-			await new Promise((r) => setTimeout(r, 1000))
 			const res = await api.expenses.$post({ json: value })
 			if (!res.ok) {
 				throw new Error('Server error')
