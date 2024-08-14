@@ -1,6 +1,7 @@
 import { api } from '@/lib/api'
 import { useQuery } from '@tanstack/react-query'
 import { createFileRoute } from '@tanstack/react-router'
+import { Skeleton } from '@/components/ui/skeleton'
 import {
 	Table,
 	TableBody,
@@ -10,7 +11,6 @@ import {
 	TableHeader,
 	TableRow
 } from '@/components/ui/table'
-import { Skeleton } from '@/components/ui/skeleton'
 
 export const Route = createFileRoute('/expenses')({
 	component: Expenses
