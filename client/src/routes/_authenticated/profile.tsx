@@ -12,5 +12,10 @@ function Profile() {
 	if (isPending) return 'loading'
 	if (error) return 'not logged in'
 
-	return <div className="p-2">Hello {data.user.family_name}</div>
+	return (
+		<div className="p-2">
+			Hello {data.user.family_name}
+			<a href="/api/logout">Logout!</a>
+		</div>
+	)
 }
