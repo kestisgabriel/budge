@@ -24,4 +24,7 @@ React CSR SPA with Bun & Hono server.
     return c.text("Hello")
     })
 
+`bunx drizzle-kit studio` - run local db
+`bun migrate.ts` - runs the migration file
+
 ## Expense-tracking
