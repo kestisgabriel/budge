@@ -24,11 +24,11 @@ export const authRoute = new Hono()
 		const isAuthenticated = await kindeClient.isAuthenticated(
 			sessionManager(c)
 		)
-		return c.json(isAuthenticated)
-		if (isAuthenticated) {
-			const user = await kindeClient.getUser(sessionManager(c))
-			return c.json(user)
-		} else {
-			// e.g. redirect to login
-		}
+		return c.json({ isAuthenticated })
+		// if (isAuthenticated) {
+		// 	const user = await kindeClient.getUser(sessionManager(c))
+		// 	return c.json(user)
+		// } else {
+		// 	// e.g. redirect to login
+		// }
 	})
