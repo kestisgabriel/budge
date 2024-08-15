@@ -23,18 +23,25 @@ export const sessionManager = (c: Context): SessionManager => ({
 		const result = getCookie(c, key)
 		return result
 	},
+
+	// Token stored in cookies
 	async setSessionItem(key: string, value: unknown) {
 		const cookieOptions = {
+			// can't be accessed by JS
 			httpOnly: true,
+			// SSL connection
 			secure: true,
+			// avoid cross-site forgery attacks
 			sameSite: 'Lax'
 		} as const
+		// Making sure token can be set as cookie
 		if (typeof value === 'string') {
 			setCookie(c, key, value, cookieOptions)
 		} else {
 			setCookie(c, key, JSON.stringify(value), cookieOptions)
 		}
 	},
+	// Delete item out of cookie if session is removed or destroyed
 	async removeSessionItem(key: string) {
 		deleteCookie(c, key)
 	},
