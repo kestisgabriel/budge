@@ -19,8 +19,8 @@ export const Route = createFileRoute('/_authenticated')({
 	beforeLoad: async () => {
 		// userQueryOptions
 		// check if user is logged in
-		return { user: null }
-		// return { user: { name: '' } }
+		// return { user: null }
+		return { user: { name: 'G' } }
 	},
 	component: Component
 })
