@@ -47,10 +47,12 @@ export const expensesRoute = new Hono()
 	})
 	.get('/total-spent', getUser, async (c) => {
 		const user = c.var.user
-		const total = db
+		const total = await db
 			.select({ total: sum(expenseTable.amount) })
 			.from(expenseTable)
 			.where(eq(expenseTable.userId, user.id))
+			.limit(1)
+			.then((res) => res[0])
 		return c.json({ total })
 	})
 	.get('/:id{[0-9]+}', getUser, (c) => {
