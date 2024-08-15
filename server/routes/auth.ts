@@ -10,3 +10,9 @@ export const authRoute = new Hono()
 		const registerUrl = await kindeClient.register(sessionManager(c))
 		return c.redirect(registerUrl.toString())
 	})
+	.get('/callback', async (c) => {
+		// called every time user logs in or registers
+		const url = new URL(c.req.url)
+		await kindeClient.handleRedirectToApp(sessionManager(c), url)
+		return c.redirect('/')
+	})
