@@ -16,7 +16,6 @@ type Expense = z.infer<typeof expenseSchema>
 
 const createExpenseSchema = expenseSchema.omit({ id: true })
 
-// expense routes defined
 export const expensesRoute = new Hono()
 	.get('/', getUser, async (c) => {
 		const user = c.var.user
@@ -31,8 +30,8 @@ export const expensesRoute = new Hono()
 		return c.json({ expenses: expenses })
 	})
 	.post('/', getUser, zValidator('json', createExpenseSchema), async (c) => {
-		const expense = await c.req.valid('json')
 		const user = c.var.user
+		const expense = c.req.valid('json')
 
 		const result = await db
 			.insert(expenseTable)
@@ -47,17 +46,19 @@ export const expensesRoute = new Hono()
 	})
 	.get('/total-spent', getUser, async (c) => {
 		const user = c.var.user
+
 		const total = await db
 			.select({ total: sum(expenseTable.amount) })
 			.from(expenseTable)
 			.where(eq(expenseTable.userId, user.id))
 			.limit(1)
 			.then((res) => res[0])
+
 		return c.json({ total })
 	})
 	.get('/:id{[0-9]+}', getUser, async (c) => {
-		const id = Number.parseInt(c.req.param('id'))
 		const user = c.var.user
+		const id = Number.parseInt(c.req.param('id'))
 
 		const expense = await db
 			.select()
@@ -73,8 +74,8 @@ export const expensesRoute = new Hono()
 		return c.json(expense)
 	})
 	.delete('/:id{[0-9]+}', getUser, async (c) => {
-		const id = Number.parseInt(c.req.param('id'))
 		const user = c.var.user
+		const id = Number.parseInt(c.req.param('id'))
 
 		const expense = await db
 			.delete(expenseTable)
@@ -87,9 +88,5 @@ export const expensesRoute = new Hono()
 		if (!expense) {
 			return c.notFound()
 		}
-
 		return c.json({ expense: expense })
 	})
-
-// TODO:
-// put
