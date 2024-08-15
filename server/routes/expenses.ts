@@ -22,6 +22,7 @@ const dummyExpenses: Expense[] = [
 // expense routes defined
 export const expensesRoute = new Hono()
 	.get('/', getUser, async (c) => {
+		const user = c.var.user
 		return c.json({ expenses: dummyExpenses })
 	})
 	.post('/', getUser, zValidator('json', createExpenseSchema), async (c) => {
