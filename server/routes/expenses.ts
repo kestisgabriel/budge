@@ -16,12 +16,6 @@ type Expense = z.infer<typeof expenseSchema>
 
 const createExpenseSchema = expenseSchema.omit({ id: true })
 
-const dummyExpenses: Expense[] = [
-	{ id: 1, title: 'Groceries', amount: '120.5' },
-	{ id: 2, title: 'Rent', amount: '950.0' },
-	{ id: 3, title: 'Utilities', amount: '75.3' }
-]
-
 // expense routes defined
 export const expensesRoute = new Hono()
 	.get('/', getUser, async (c) => {
@@ -31,6 +25,8 @@ export const expensesRoute = new Hono()
 			.select()
 			.from(expenseTable)
 			.where(eq(expenseTable.userId, user.id))
+			.limit(100)
+
 		return c.json({ expenses: expenses })
 	})
 	.post('/', getUser, zValidator('json', createExpenseSchema), async (c) => {
