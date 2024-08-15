@@ -14,13 +14,17 @@ const Component = () => {
 	return <Outlet />
 }
 
-// src/routes/_authenticated.tsx
 export const Route = createFileRoute('/_authenticated')({
-	beforeLoad: async () => {
-		// userQueryOptions
-		// check if user is logged in
-		// return { user: null }
-		return { user: { name: 'G' } }
+	beforeLoad: async ({ context }) => {
+		const queryClient = context.queryClient
+
+		try {
+			const data = await queryClient.fetchQuery(userQueryOptions)
+			return data
+		} catch (e) {
+			console.error('Error fetching user', e)
+			return { user: null }
+		}
 	},
 	component: Component
 })
