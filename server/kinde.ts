@@ -5,9 +5,9 @@ import {
 
 // Client for authorization code flow
 const kindeClient = createKindeServerClient(GrantType.AUTHORIZATION_CODE, {
-	authDomain: 'process.env.KINDE_DOMAIN',
-	clientId: 'process.env.KINDE_CLIENT_ID',
-	clientSecret: 'process.env.KINDE_CLIENT_SECRET',
-	redirectURL: 'process.env.KINDE_REDIRECT_URL',
-	logoutRedirectURL: 'process.env.KINDE_LOGOUT_REDIRECT_URL'
+	authDomain: process.env.KINDE_DOMAIN!,
+	clientId: process.env.KINDE_CLIENT_ID!,
+	clientSecret: process.env.KINDE_CLIENT_SECRET!,
+	redirectURL: process.env.KINDE_REDIRECT_URL!,
+	logoutRedirectURL: process.env.KINDE_LOGOUT_REDIRECT_URL!
 })
