@@ -1,6 +1,7 @@
 import {
 	createKindeServerClient,
-	GrantType
+	GrantType,
+	type SessionManager
 } from '@kinde-oss/kinde-typescript-sdk'
 
 // Client for authorization code flow
@@ -14,3 +15,20 @@ export const kindeClient = createKindeServerClient(
 		logoutRedirectURL: process.env.KINDE_LOGOUT_REDIRECT_URL!
 	}
 )
+
+let store: Record<string, unknown> = {}
+
+export const sessionManager: SessionManager = {
+	async getSessionItem(key: string) {
+		return store[key]
+	},
+	async setSessionItem(key: string, value: unknown) {
+		store[key] = value
+	},
+	async removeSessionItem(key: string) {
+		delete store[key]
+	},
+	async destroySession() {
+		store = {}
+	}
+}
