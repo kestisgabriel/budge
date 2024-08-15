@@ -29,6 +29,6 @@ export const authRoute = new Hono()
 			return c.json({ error: 'Unauthorized' }, 401)
 		}
 		// return user details if authenticated
-		const user = await kindeClient.getUser(manager)
+		const user = await kindeClient.getUserProfile(manager)
 		return c.json({ user })
 	})
