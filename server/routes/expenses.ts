@@ -30,7 +30,7 @@ export const expensesRoute = new Hono()
 		c.status(201)
 		return c.json(expense)
 	})
-	.get('/total-spent', getUser, (c) => {
+	.get('/total-spent', getUser, async (c) => {
 		const totalSpent = dummyExpenses.reduce(
 			(acc, expense) => acc + expense.amount,
 			0
