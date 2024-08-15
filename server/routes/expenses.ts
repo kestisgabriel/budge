@@ -4,7 +4,7 @@ import { zValidator } from '@hono/zod-validator'
 import { getUser } from '../kinde'
 import { db } from '../db'
 import { expenses as expenseTable } from '../db/schema/expenses'
-import { desc, eq } from 'drizzle-orm'
+import { desc, eq, sum } from 'drizzle-orm'
 
 const expenseSchema = z.object({
 	id: z.number().int().positive().min(1),
@@ -46,11 +46,12 @@ export const expensesRoute = new Hono()
 		return c.json(result)
 	})
 	.get('/total-spent', getUser, async (c) => {
-		const totalSpent = dummyExpenses.reduce(
-			(acc, expense) => acc + +expense.amount,
-			0
-		)
-		return c.json({ totalSpent })
+		const user = c.var.user
+		const total = db
+			.select({ total: sum(expenseTable.amount) })
+			.from(expenseTable)
+			.where(eq(expenseTable.userId, user.id))
+		return c.json({ total })
 	})
 	.get('/:id{[0-9]+}', getUser, (c) => {
 		const id = Number.parseInt(c.req.param('id'))
