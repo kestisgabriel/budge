@@ -65,7 +65,6 @@ export const expensesRoute = new Hono()
 			.where(
 				and(eq(expenseTable.userId, user.id), eq(expenseTable.id, id))
 			)
-			.orderBy(desc(expenseTable.createdAt))
 			.then((res) => res[0])
 
 		if (!expense) {
@@ -73,14 +72,23 @@ export const expensesRoute = new Hono()
 		}
 		return c.json(expense)
 	})
-	.delete('/:id{[0-9]+}', getUser, (c) => {
+	.delete('/:id{[0-9]+}', getUser, async (c) => {
 		const id = Number.parseInt(c.req.param('id'))
-		const index = dummyExpenses.findIndex((expense) => expense.id === id)
-		if (index === -1) {
+		const user = c.var.user
+
+		const expense = await db
+			.delete(expenseTable)
+			.where(
+				and(eq(expenseTable.userId, user.id), eq(expenseTable.id, id))
+			)
+			.returning()
+			.then((res) => res[0])
+
+		if (!expense) {
 			return c.notFound()
 		}
-		const deletedExpense = dummyExpenses.splice(index, 1)[0]
-		return c.json({ expense: deletedExpense })
+
+		return c.json({ expense: expense })
 	})
 
 // TODO:
