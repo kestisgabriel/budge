@@ -8,6 +8,13 @@
       "when": 1723750412595,
       "tag": "0000_fast_calypso",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1723751890621,
+      "tag": "0001_glorious_goliath",
+      "breakpoints": true
     }
   ]
 }

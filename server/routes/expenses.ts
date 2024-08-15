@@ -4,7 +4,7 @@ import { zValidator } from '@hono/zod-validator'
 import { getUser } from '../kinde'
 import { db } from '../db'
 import { expenses as expenseTable } from '../db/schema/expenses'
-import { eq } from 'drizzle-orm'
+import { desc, eq } from 'drizzle-orm'
 
 const expenseSchema = z.object({
 	id: z.number().int().positive().min(1),
@@ -25,6 +25,7 @@ export const expensesRoute = new Hono()
 			.select()
 			.from(expenseTable)
 			.where(eq(expenseTable.userId, user.id))
+			.orderBy(desc(expenseTable.createdAt))
 			.limit(100)
 
 		return c.json({ expenses: expenses })
