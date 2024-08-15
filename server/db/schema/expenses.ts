@@ -9,7 +9,7 @@ import {
 } from 'drizzle-orm/pg-core'
 
 export const expenses = pgTable(
-	'countries',
+	'expenses',
 	{
 		id: serial('id').primaryKey(),
 		userId: text('user_id').notNull(),
