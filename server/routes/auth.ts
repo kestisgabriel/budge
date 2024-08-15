@@ -16,3 +16,7 @@ export const authRoute = new Hono()
 		await kindeClient.handleRedirectToApp(sessionManager(c), url)
 		return c.redirect('/')
 	})
+	.get('/logout', async (c) => {
+		const logoutUrl = await kindeClient.logout(sessionManager(c))
+		return c.redirect(logoutUrl.toString())
+	})
