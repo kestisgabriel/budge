@@ -10,7 +10,7 @@ export const expenseSchema = z.object({
 		.max(100, {
 			message: 'Title can not exceed 100 characters'
 		}),
-	amount: z.string()
+	amount: z.string().regex(/^\d+$/, 'Amount must be a positive number')
 })
 
 export const createExpenseSchema = expenseSchema.omit({ id: true })
