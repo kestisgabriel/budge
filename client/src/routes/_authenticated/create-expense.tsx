@@ -105,9 +105,11 @@ function CreateExpense() {
 						<div className="self-center">
 							<Calendar
 								mode="single"
-								selected={field.state.value}
-								onSelect={(e) =>
-									field.handleChange(e.target.value)
+								selected={new Date(field.state.value)}
+								onSelect={(date) =>
+									field.handleChange(
+										(date ?? new Date()).toISOString()
+									)
 								}
 								className="rounded-md border"
 							/>
