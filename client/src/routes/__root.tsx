@@ -4,7 +4,7 @@ import {
 	Link,
 	Outlet
 } from '@tanstack/react-router'
-import { TanStackRouterDevtools } from '@tanstack/router-devtools'
+// import { TanStackRouterDevtools } from '@tanstack/router-devtools'
 import { Toaster } from 'sonner'
 
 interface MyRouterContext {
@@ -48,7 +48,7 @@ function Root() {
 				<Outlet />
 			</div>
 			<Toaster />
-			<TanStackRouterDevtools />
+			{/* <TanStackRouterDevtools /> */}
 		</>
 	)
 }
