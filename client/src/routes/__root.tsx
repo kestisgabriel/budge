@@ -19,7 +19,7 @@ function NavBar() {
 	return (
 		<div className="p-2 flex justify-between max-w-2xl m-auto items-baseline">
 			<Link to="/">
-				<h1 className="text-2xl font-bold">Expense Tracker</h1>
+				<h1 className="text-2xl font-bold">Budge</h1>
 			</Link>
 			<div className="flex gap-2 ">
 				<Link to="/about" className="[&.active]:font-bold">
