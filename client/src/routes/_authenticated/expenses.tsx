@@ -42,6 +42,7 @@ function Expenses() {
 						<TableHead className="w-[100px]">ID</TableHead>
 						<TableHead>Title</TableHead>
 						<TableHead className="text-right">Amount</TableHead>
+						<TableHead>Date</TableHead>
 					</TableRow>
 				</TableHeader>
 				<TableBody>
@@ -51,6 +52,9 @@ function Expenses() {
 								.map((_, i) => (
 									<TableRow key={i}>
 										<TableCell className="font-medium">
+											<Skeleton className="h-4" />
+										</TableCell>
+										<TableCell>
 											<Skeleton className="h-4" />
 										</TableCell>
 										<TableCell>
@@ -70,6 +74,7 @@ function Expenses() {
 									<TableCell className="text-right">
 										{expense.amount}
 									</TableCell>
+									<TableCell>{expense.date}</TableCell>
 								</TableRow>
 							))}
 				</TableBody>
