@@ -18,7 +18,8 @@ function CreateExpense() {
 		validatorAdapter: zodValidator(),
 		defaultValues: {
 			title: '',
-			amount: '0'
+			amount: '0',
+			date: new Date().toISOString()
 		},
 		onSubmit: async ({ value }) => {
 			const res = await api.expenses.$post({ json: value })
