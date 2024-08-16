@@ -3,7 +3,7 @@ import {
 	getAllExpensesQueryOptions,
 	loadingCreateExpenseQueryOptions
 } from '@/lib/api'
-import { useMutation, useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { createFileRoute } from '@tanstack/react-router'
 import { Skeleton } from '@/components/ui/skeleton'
 import {
@@ -107,6 +107,7 @@ function Expenses() {
 }
 
 function ExpenseDeleteButton({ id }: { id: number }) {
+	const queryClient = useQueryClient()
 	const mutation = useMutation({
 		mutationFn: deleteExpense,
 		onError: () => {
@@ -116,9 +117,18 @@ function ExpenseDeleteButton({ id }: { id: number }) {
 			toast('Expense Deleted', {
 				description: `Successfully deleted expense: ${id}`
 			})
+			// remove expense
+			queryClient.setQueryData(
+				getAllExpensesQueryOptions.queryKey,
+				(existingExpenses) => ({
+					...existingExpenses,
+					expenses: existingExpenses!.expenses.filter(
+						(e) => e.id !== id
+					)
+				})
+			)
 		}
 	})
-
 	return (
 		<Button
 			disabled={mutation.isPending}
