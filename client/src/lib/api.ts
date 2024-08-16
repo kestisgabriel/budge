@@ -9,9 +9,11 @@ export const api = client.api
 
 async function getCurrentUser() {
 	const res = await api.me.$get()
+
 	if (!res.ok) {
 		throw new Error('server error')
 	}
+
 	const data = await res.json()
 	return data
 }
@@ -24,9 +26,11 @@ export const userQueryOptions = queryOptions({
 
 export async function getAllExpenses() {
 	const res = await api.expenses.$get()
+
 	if (!res.ok) {
 		throw new Error('server error')
 	}
+
 	const data = await res.json()
 	return data
 }
@@ -40,6 +44,7 @@ export const getAllExpensesQueryOptions = queryOptions({
 export async function createExpense({ value }: { value: CreateExpense }) {
 	await new Promise((r) => setTimeout(r, 3000))
 	const res = await api.expenses.$post({ json: value })
+
 	if (!res.ok) {
 		throw new Error('Server error')
 	}
