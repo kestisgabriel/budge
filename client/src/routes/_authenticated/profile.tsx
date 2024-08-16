@@ -2,6 +2,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { useQuery } from '@tanstack/react-query'
 import { userQueryOptions } from '@/lib/api'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { Button } from '@/components/ui/button'
 
 export const Route = createFileRoute('/_authenticated/profile')({
 	component: Profile
@@ -28,8 +29,10 @@ function Profile() {
 				<p>
 					{data.user.given_name} {data.user.family_name}
 				</p>
-				<a href="/api/logout">Logout!</a>
 			</div>
+			<Button asChild className="my-4">
+				<a href="/api/logout">Logout</a>
+			</Button>
 		</div>
 	)
 }
