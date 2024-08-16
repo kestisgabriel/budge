@@ -29,7 +29,8 @@ export const expensesRoute = new Hono()
 
 		const validatedExpense = insertExpensesSchema.parse({
 			...expense,
-			userId: user.id
+			userId: user.id,
+			date: new Date(expense.date)
 		})
 
 		const result = await db
