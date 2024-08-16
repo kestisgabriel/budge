@@ -107,7 +107,7 @@ function Expenses() {
 }
 
 function ExpenseDeleteButton({ id }: { id: number }) {
-	useMutation({
+	const mutation = useMutation({
 		mutationFn: deleteExpense,
 		onError: () => {
 			toast('Error', { description: `Failed to delete expense: ${id}` })
@@ -120,7 +120,11 @@ function ExpenseDeleteButton({ id }: { id: number }) {
 	})
 
 	return (
-		<Button variant="outline" size="icon">
+		<Button
+			variant="outline"
+			size="icon"
+			onClick={() => mutation.mutate({ id })}
+		>
 			<Trash className="h-4 w-4" />
 		</Button>
 	)
