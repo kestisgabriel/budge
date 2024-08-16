@@ -36,7 +36,8 @@ Authentication and data persistance beyond client-side storage is dependant on e
 
 ## Contributing to the repository
 
-`bun run c` - runs a QoL shell script prompting you for a commit message before commiting. Shorthand for `git add . && git commit -m $commit_message`
+`bun run c` - runs a QoL shell script prompting you for a commit message before commiting.
+Shorthand for `git add . && git commit -m $commit_message`
 
 ### Updating the database
 
