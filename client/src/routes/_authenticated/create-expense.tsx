@@ -19,7 +19,7 @@ function CreateExpense() {
 		defaultValues: {
 			title: '',
 			amount: '0',
-			date: new Date().toISOString()
+			date: new Date().toISOString().split('T')[0] // YYYY-MM-DD by splitting around T:  YYYY-MM-DDTHH:mm:ss
 		},
 		onSubmit: async ({ value }) => {
 			const res = await api.expenses.$post({ json: value })
@@ -108,12 +108,13 @@ function CreateExpense() {
 								selected={new Date(field.state.value)}
 								onSelect={(date) =>
 									field.handleChange(
-										(date ?? new Date()).toISOString()
+										date
+											? date.toLocaleDateString('en-CA') // hacky solution, stealing canadian time format YYYY-MM-DD
+											: ''
 									)
 								}
 								className="rounded-md border"
 							/>
-
 							{field.state.meta.isTouched &&
 							field.state.meta.errors.length ? (
 								<em>{field.state.meta.errors.join(', ')}</em>
@@ -124,7 +125,6 @@ function CreateExpense() {
 						</div>
 					)}
 				/>
-
 				<form.Subscribe
 					selector={(state) => [state.canSubmit, state.isSubmitting]}
 					children={([canSubmit, isSubmitting]) => (
