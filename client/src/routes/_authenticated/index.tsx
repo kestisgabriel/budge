@@ -38,7 +38,9 @@ function Index() {
 					<CardTitle>Total Spent</CardTitle>
 					<CardDescription>Total amount you've spent</CardDescription>
 				</CardHeader>
-				<CardContent>{isPending ? '...' : data.totalSpent}</CardContent>
+				<CardContent>
+					{isPending ? '...' : data.total.total}
+				</CardContent>
 			</Card>
 		</div>
 	)
