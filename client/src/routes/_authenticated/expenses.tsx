@@ -1,8 +1,9 @@
 import {
+	deleteExpense,
 	getAllExpensesQueryOptions,
 	loadingCreateExpenseQueryOptions
 } from '@/lib/api'
-import { useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import { createFileRoute } from '@tanstack/react-router'
 import { Skeleton } from '@/components/ui/skeleton'
 import {
@@ -16,6 +17,7 @@ import {
 } from '@/components/ui/table'
 import { Button } from '@/components/ui/button'
 import { Trash } from 'lucide-react'
+import { toast } from 'sonner'
 
 export const Route = createFileRoute('/_authenticated/expenses')({
 	component: Expenses
@@ -94,14 +96,32 @@ function Expenses() {
 									</TableCell>
 									<TableCell>{expense.date}</TableCell>
 									<TableCell>
-										<Button variant="outline" size="icon">
-											<Trash className="h-4 w-4" />
-										</Button>
+										<ExpenseDeleteButton id={expense.id} />
 									</TableCell>
 								</TableRow>
 							))}
 				</TableBody>
 			</Table>
 		</div>
+	)
+}
+
+function ExpenseDeleteButton({ id }: { id: number }) {
+	useMutation({
+		mutationFn: deleteExpense,
+		onError: () => {
+			toast('Error', { description: `Failed to delete expense: ${id}` })
+		},
+		onSuccess: () => {
+			toast('Expense Deleted', {
+				description: `Successfully deleted expense: ${id}`
+			})
+		}
+	})
+
+	return (
+		<Button variant="outline" size="icon">
+			<Trash className="h-4 w-4" />
+		</Button>
 	)
 }
