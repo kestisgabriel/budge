@@ -1,11 +1,12 @@
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
+import { useForm } from '@tanstack/react-form'
+import { api, getAllExpensesQueryOptions } from '@/lib/api'
+import { useQueryClient } from '@tanstack/react-query'
+import { zodValidator } from '@tanstack/zod-form-adapter'
+import { createExpenseSchema } from '@server/formSchemas'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'
-import { useForm } from '@tanstack/react-form'
-import { api } from '@/lib/api'
-import { zodValidator } from '@tanstack/zod-form-adapter'
-import { createExpenseSchema } from '@server/formSchemas'
 import { Calendar } from '@/components/ui/calendar'
 
 export const Route = createFileRoute('/_authenticated/create-expense')({
@@ -13,19 +14,32 @@ export const Route = createFileRoute('/_authenticated/create-expense')({
 })
 
 function CreateExpense() {
+	const queryClient = useQueryClient()
 	const navigate = useNavigate()
 	const form = useForm({
 		validatorAdapter: zodValidator(),
 		defaultValues: {
 			title: '',
 			amount: '0',
-			date: new Date().toISOString().split('T')[0] // YYYY-MM-DD by splitting around T:  YYYY-MM-DDTHH:mm:ss
+			date: new Date().toISOString().split('T')[0] // YYYY-MM-DD by splitting around T: YYYY-MM-DDTHH:mm:ss
 		},
 		onSubmit: async ({ value }) => {
+			// grab all existing expenses locally if available || or fetch from server
+			const existingExpenses = await queryClient.ensureQueryData(
+				getAllExpensesQueryOptions
+			)
+			// then make POST request with new expense
 			const res = await api.expenses.$post({ json: value })
 			if (!res.ok) {
 				throw new Error('Server error')
 			}
+			const newExpense = await res.json()
+			// update local cache to include the new expense
+			queryClient.setQueryData(getAllExpensesQueryOptions.queryKey, {
+				// add newExpense to beginning of expenses array (reverse chronological)
+				...existingExpenses,
+				expenses: [newExpense, ...existingExpenses.expenses]
+			})
 			navigate({ to: '/expenses' })
 		}
 	})

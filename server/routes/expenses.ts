@@ -30,13 +30,13 @@ export const expensesRoute = new Hono()
 		const validatedExpense = insertExpensesSchema.parse({
 			...expense,
 			userId: user.id
-			// date: new Date(expense.date)
 		})
 
 		const result = await db
 			.insert(expenseTable)
 			.values(validatedExpense)
 			.returning()
+			.then((res) => res[0])
 
 		c.status(201)
 		return c.json(result)
