@@ -10,15 +10,15 @@ A compact and highly performant CSR SPA project for expense tracking.
 
 ## Stack
 
-TypeScript // language
-Vite + React // client bundler & framework
-Bun + Hono // server-side runtime & framework
-PostgreSQL + Neon + Drizzle // database & ORM
-Kinde // user auth
-TailwindCSS + shadcn // user interface styling
-Zod + TanStack Form // form validation
-TanStack Query // SPA state management
-TanStack Router // client-side SPA routing
+-   TypeScript // language
+-   Vite + React // client bundler & framework
+-   Bun + Hono // server-side runtime & framework
+-   PostgreSQL + Neon + Drizzle // database & ORM
+-   Kinde // user auth
+-   TailwindCSS + shadcn // user interface styling
+-   Zod + TanStack Form // form validation
+-   TanStack Query // SPA state management
+-   TanStack Router // client-side SPA routing
 
 ### Stack description
 
