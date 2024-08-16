@@ -1,8 +1,10 @@
+import { hc } from 'hono/client'
 import { type ApiRoutes } from '@server/app'
 import { queryOptions } from '@tanstack/react-query'
+import { type CreateExpense } from '@server/formSchemas'
 
-import { hc } from 'hono/client'
 const client = hc<ApiRoutes>('/')
+
 export const api = client.api
 
 async function getCurrentUser() {
@@ -34,3 +36,13 @@ export const getAllExpensesQueryOptions = queryOptions({
 	queryFn: getAllExpenses,
 	staleTime: 1000 * 60 * 5
 })
+
+export async function createExpense({ value }: { value: CreateExpense }) {
+	const res = await api.expenses.$post({ json: value })
+	if (!res.ok) {
+		throw new Error('Server error')
+	}
+
+	const newExpense = await res.json()
+	return newExpense
+}

@@ -1,9 +1,10 @@
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import { useForm } from '@tanstack/react-form'
-import { api, getAllExpensesQueryOptions } from '@/lib/api'
+import { createExpense, getAllExpensesQueryOptions } from '@/lib/api'
 import { useQueryClient } from '@tanstack/react-query'
 import { zodValidator } from '@tanstack/zod-form-adapter'
 import { createExpenseSchema } from '@server/formSchemas'
+
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'
@@ -28,19 +29,15 @@ function CreateExpense() {
 			const existingExpenses = await queryClient.ensureQueryData(
 				getAllExpensesQueryOptions
 			)
-			// then make POST request with new expense
-			const res = await api.expenses.$post({ json: value })
-			if (!res.ok) {
-				throw new Error('Server error')
-			}
-			const newExpense = await res.json()
+			navigate({ to: '/expenses' })
+			// get newExpense object by calling createExpense function in api
+			const newExpense = await createExpense({ value })
 			// update local cache to include the new expense
 			queryClient.setQueryData(getAllExpensesQueryOptions.queryKey, {
 				// add newExpense to beginning of expenses array (reverse chronological)
 				...existingExpenses,
 				expenses: [newExpense, ...existingExpenses.expenses]
 			})
-			navigate({ to: '/expenses' })
 		}
 	})
 
