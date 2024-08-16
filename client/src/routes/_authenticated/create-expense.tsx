@@ -1,6 +1,10 @@
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import { useForm } from '@tanstack/react-form'
-import { createExpense, getAllExpensesQueryOptions } from '@/lib/api'
+import {
+	createExpense,
+	getAllExpensesQueryOptions,
+	loadingCreateExpenseQueryOptions
+} from '@/lib/api'
 import { useQueryClient } from '@tanstack/react-query'
 import { zodValidator } from '@tanstack/zod-form-adapter'
 import { createExpenseSchema } from '@server/formSchemas'
@@ -29,15 +33,31 @@ function CreateExpense() {
 			const existingExpenses = await queryClient.ensureQueryData(
 				getAllExpensesQueryOptions
 			)
+			// navigate to expenses and show loading state
 			navigate({ to: '/expenses' })
-			// get newExpense object by calling createExpense function in api
-			const newExpense = await createExpense({ value })
-			// update local cache to include the new expense
-			queryClient.setQueryData(getAllExpensesQueryOptions.queryKey, {
-				// add newExpense to beginning of expenses array (reverse chronological)
-				...existingExpenses,
-				expenses: [newExpense, ...existingExpenses.expenses]
-			})
+			queryClient.setQueryData(
+				loadingCreateExpenseQueryOptions.queryKey,
+				{
+					expense: value
+				}
+			)
+			try {
+				// get newExpense object by calling createExpense from server
+				const newExpense = await createExpense({ value })
+				// update local cache to include the new expense
+				queryClient.setQueryData(getAllExpensesQueryOptions.queryKey, {
+					// add newExpense to beginning of expenses array (reverse chronological)
+					...existingExpenses,
+					expenses: [newExpense, ...existingExpenses.expenses]
+				})
+			} catch (error) {
+				console.error(error)
+			} finally {
+				queryClient.setQueryData(
+					loadingCreateExpenseQueryOptions.queryKey,
+					{}
+				)
+			}
 		}
 	})
 
