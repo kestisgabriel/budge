@@ -121,11 +121,12 @@ function ExpenseDeleteButton({ id }: { id: number }) {
 
 	return (
 		<Button
+			disabled={mutation.isPending}
 			variant="outline"
 			size="icon"
 			onClick={() => mutation.mutate({ id })}
 		>
-			<Trash className="h-4 w-4" />
+			{mutation.isPending ? '...' : <Trash className="h-4 w-4" />}
 		</Button>
 	)
 }
