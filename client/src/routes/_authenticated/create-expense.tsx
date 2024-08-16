@@ -13,6 +13,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'
 import { Calendar } from '@/components/ui/calendar'
+import { toast } from 'sonner'
 
 export const Route = createFileRoute('/_authenticated/create-expense')({
 	component: CreateExpense
@@ -50,8 +51,15 @@ function CreateExpense() {
 					...existingExpenses,
 					expenses: [newExpense, ...existingExpenses.expenses]
 				})
+				toast('Expense Created', {
+					description: `Success! ${newExpense.id}: ${newExpense.title} created`
+				})
 			} catch (error) {
 				console.error(error)
+
+				toast('Error', {
+					description: 'Failed to create new expense'
+				})
 			} finally {
 				queryClient.setQueryData(
 					loadingCreateExpenseQueryOptions.queryKey,

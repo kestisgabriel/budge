@@ -5,6 +5,7 @@ import {
 	Outlet
 } from '@tanstack/react-router'
 import { TanStackRouterDevtools } from '@tanstack/router-devtools'
+import { Toaster } from 'sonner'
 
 interface MyRouterContext {
 	queryClient: QueryClient
@@ -46,6 +47,7 @@ function Root() {
 			<div className="p-2 gap-2 max-w-2xl m-auto">
 				<Outlet />
 			</div>
+			<Toaster />
 			<TanStackRouterDevtools />
 		</>
 	)
