@@ -5,9 +5,7 @@ import { Button } from '@/components/ui/button'
 import { useForm } from '@tanstack/react-form'
 import { api } from '@/lib/api'
 import { zodValidator } from '@tanstack/zod-form-adapter'
-import { z } from 'zod'
 import { createExpenseSchema } from '@server/formSchemas'
-import { create } from 'domain'
 
 export const Route = createFileRoute('/_authenticated/create-expense')({
 	component: CreateExpense
@@ -70,6 +68,9 @@ function CreateExpense() {
 				/>
 				<form.Field
 					name="amount"
+					validators={{
+						onChange: createExpenseSchema.shape.amount
+					}}
 					children={(field) => (
 						<>
 							<Label htmlFor={field.name}>Amount</Label>
