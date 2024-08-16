@@ -6,8 +6,7 @@ import { useForm } from '@tanstack/react-form'
 import { api } from '@/lib/api'
 import { zodValidator } from '@tanstack/zod-form-adapter'
 import { createExpenseSchema } from '@server/formSchemas'
-// TODO: add Calendar
-// import { Calendar } from '@/components/ui/calendar'
+import { Calendar } from '@/components/ui/calendar'
 
 export const Route = createFileRoute('/_authenticated/create-expense')({
 	component: CreateExpense
@@ -68,31 +67,6 @@ function CreateExpense() {
 						</div>
 					)}
 				/>
-				{/* TODO: Add calendar */}
-				{/* <form.Field
-					name="title"
-					validators={{
-						onChange: createExpenseSchema.shape.title
-					}}
-					children={(field) => (
-						<div>
-							<Calendar
-								mode="single"
-								selected={date}
-								onSelect={setDate}
-								className="rounded-md border"
-							/>
-
-							{field.state.meta.isTouched &&
-							field.state.meta.errors.length ? (
-								<em>{field.state.meta.errors.join(', ')}</em>
-							) : null}
-							{field.state.meta.isValidating
-								? 'Validating...'
-								: null}
-						</div>
-					)}
-				/> */}
 				<form.Field
 					name="amount"
 					validators={{
@@ -121,6 +95,33 @@ function CreateExpense() {
 						</div>
 					)}
 				/>
+				<form.Field
+					name="date"
+					validators={{
+						onChange: createExpenseSchema.shape.date
+					}}
+					children={(field) => (
+						<div className="self-center">
+							<Calendar
+								mode="single"
+								selected={field.state.value}
+								onSelect={(e) =>
+									field.handleChange(e.target.value)
+								}
+								className="rounded-md border"
+							/>
+
+							{field.state.meta.isTouched &&
+							field.state.meta.errors.length ? (
+								<em>{field.state.meta.errors.join(', ')}</em>
+							) : null}
+							{field.state.meta.isValidating
+								? 'Validating...'
+								: null}
+						</div>
+					)}
+				/>
+
 				<form.Subscribe
 					selector={(state) => [state.canSubmit, state.isSubmitting]}
 					children={([canSubmit, isSubmitting]) => (
