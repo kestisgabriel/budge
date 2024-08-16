@@ -6,6 +6,7 @@ import {
 	index,
 	timestamp
 } from 'drizzle-orm/pg-core'
+import { createInsertSchema, createSelectSchema } from 'drizzle-zod'
 
 export const expenses = pgTable(
 	'expenses',
@@ -22,3 +23,7 @@ export const expenses = pgTable(
 		}
 	}
 )
+
+// Schema for inserting an expense - can be used to validate API requests
+export const insertExpensesSchema = createInsertSchema(expenses)
+export const selectExpensesSchema = createSelectSchema(expenses)
