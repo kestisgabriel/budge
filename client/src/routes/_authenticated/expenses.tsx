@@ -14,6 +14,8 @@ import {
 	TableHeader,
 	TableRow
 } from '@/components/ui/table'
+import { Button } from '@/components/ui/button'
+import { Trash } from 'lucide-react'
 
 export const Route = createFileRoute('/_authenticated/expenses')({
 	component: Expenses
@@ -36,6 +38,7 @@ function Expenses() {
 						<TableHead>Title</TableHead>
 						<TableHead className="text-right">Amount</TableHead>
 						<TableHead>Date</TableHead>
+						<TableHead>Delete</TableHead>
 					</TableRow>
 				</TableHeader>
 				<TableBody>
@@ -53,6 +56,9 @@ function Expenses() {
 							<TableCell>
 								{loadingCreateExpense?.expense.date}
 							</TableCell>
+							<TableCell>
+								<Skeleton className="h-4" />
+							</TableCell>
 						</TableRow>
 					)}
 					{isPending
@@ -61,6 +67,9 @@ function Expenses() {
 								.map((_, i) => (
 									<TableRow key={i}>
 										<TableCell className="font-medium">
+											<Skeleton className="h-4" />
+										</TableCell>
+										<TableCell>
 											<Skeleton className="h-4" />
 										</TableCell>
 										<TableCell>
@@ -84,6 +93,11 @@ function Expenses() {
 										{expense.amount}
 									</TableCell>
 									<TableCell>{expense.date}</TableCell>
+									<TableCell>
+										<Button variant="outline" size="icon">
+											<Trash className="h-4 w-4" />
+										</Button>
+									</TableCell>
 								</TableRow>
 							))}
 				</TableBody>
