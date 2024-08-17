@@ -28,7 +28,7 @@ _in /client directory_: `bun dev` - run client
 
 Authentication and data persistance beyond client-side storage is dependant on environment variables retrieved from Kinde and Drizzle - and will not work when running the app locally.
 
-### Updating the database
+## Updating the database
 
 `bun drizzle-kit generate` - generates new migration
 
