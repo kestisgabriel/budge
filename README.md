@@ -22,11 +22,11 @@ A compact and highly performant CSR SPA project for expense tracking.
 
 ## Setup & run the application
 
-`bun i && cd client && bun i` - ensure packages are up to date
-_in root directory_:
-`bun dev` - run server
-_in /client directory_:
-`bun dev` - run client
+-   `bun i && cd client && bun i` - ensure packages are up to date
+    _in root directory_:
+-   `bun dev` - run server
+    _in /client directory_:
+-   `bun dev` - run client
 
 Authentication and data persistance beyond client-side storage is dependant on environment variables retrieved from Kinde and Drizzle - and will not work when running the app locally.
 
