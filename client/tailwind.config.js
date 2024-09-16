@@ -22,7 +22,7 @@ module.exports = {
 			// 	sans: ['"Expletus Sans"', 'sans-serif'],
 			// },
 			// letterSpacing: {
-			// 	wider: '0.02em', // 8% letter spacing
+			// 	wider: '0.08em', // 8% letter spacing
 			// },
 			colors: {
 				border: 'hsl(var(--border))',
