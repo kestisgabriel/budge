@@ -120,7 +120,9 @@ function CreateExpense() {
 								name={field.name}
 								value={field.state.value}
 								onBlur={field.handleBlur}
-								type='number'
+								type='text'
+								inputMode='numeric'
+								pattern='[0-9]*'
 								onChange={(e) =>
 									field.handleChange(e.target.value)
 								}
