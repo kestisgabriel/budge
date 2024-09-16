@@ -34,11 +34,6 @@ export const insertExpensesSchema = createInsertSchema(expenses, {
 		message: 'Title must be at least 3 characters',
 	}),
 	amount: z.string().regex(/^\d+$/, 'Amount must be a positive number'),
-	date: z
-		.string()
-		.regex(
-			/^\d{4}-\d{2}-\d{2}$/,
-			'Something is wrong with the date picker, sorry. Please try again.',
-		),
+	date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'Date unselected.'),
 });
 export const selectExpensesSchema = createSelectSchema(expenses);
