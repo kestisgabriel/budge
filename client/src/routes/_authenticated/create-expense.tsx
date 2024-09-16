@@ -1,89 +1,89 @@
-import { createFileRoute, useNavigate } from '@tanstack/react-router'
-import { useForm } from '@tanstack/react-form'
+import { createFileRoute, useNavigate } from '@tanstack/react-router';
+import { useForm } from '@tanstack/react-form';
 import {
 	createExpense,
 	getAllExpensesQueryOptions,
-	loadingCreateExpenseQueryOptions
-} from '@/lib/api'
-import { useQueryClient } from '@tanstack/react-query'
-import { zodValidator } from '@tanstack/zod-form-adapter'
-import { createExpenseSchema } from '@server/formSchemas'
+	loadingCreateExpenseQueryOptions,
+} from '@/lib/api';
+import { useQueryClient } from '@tanstack/react-query';
+import { zodValidator } from '@tanstack/zod-form-adapter';
+import { createExpenseSchema } from '@server/formSchemas';
 
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { Button } from '@/components/ui/button'
-import { Calendar } from '@/components/ui/calendar'
-import { toast } from 'sonner'
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Button } from '@/components/ui/button';
+import { Calendar } from '@/components/ui/calendar';
+import { toast } from 'sonner';
 
 export const Route = createFileRoute('/_authenticated/create-expense')({
-	component: CreateExpense
-})
+	component: CreateExpense,
+});
 
 function CreateExpense() {
-	const queryClient = useQueryClient()
-	const navigate = useNavigate()
+	const queryClient = useQueryClient();
+	const navigate = useNavigate();
 	const form = useForm({
 		validatorAdapter: zodValidator(),
 		defaultValues: {
 			title: '',
 			amount: '0',
-			date: new Date().toISOString().split('T')[0] // YYYY-MM-DD by splitting around T: YYYY-MM-DDTHH:mm:ss
+			date: new Date().toISOString().split('T')[0], // YYYY-MM-DD by splitting around T: YYYY-MM-DDTHH:mm:ss
 		},
 		onSubmit: async ({ value }) => {
 			// grab all existing expenses locally if available || or fetch from server
 			const existingExpenses = await queryClient.ensureQueryData(
-				getAllExpensesQueryOptions
-			)
+				getAllExpensesQueryOptions,
+			);
 			// navigate to expenses and show loading state
-			navigate({ to: '/expenses' })
+			navigate({ to: '/expenses' });
 			queryClient.setQueryData(
 				loadingCreateExpenseQueryOptions.queryKey,
 				{
-					expense: value
-				}
-			)
+					expense: value,
+				},
+			);
 			try {
 				// get newExpense object by calling createExpense from server
-				const newExpense = await createExpense({ value })
+				const newExpense = await createExpense({ value });
 				// update local cache to include the new expense
 				queryClient.setQueryData(getAllExpensesQueryOptions.queryKey, {
 					// add newExpense to beginning of expenses array (reverse chronological)
 					...existingExpenses,
-					expenses: [newExpense, ...existingExpenses.expenses]
-				})
+					expenses: [newExpense, ...existingExpenses.expenses],
+				});
 				toast('Expense Created', {
-					description: `Success! ${newExpense.id}: ${newExpense.title} created`
-				})
+					description: `Success! ${newExpense.id}: ${newExpense.title} created`,
+				});
 			} catch (error) {
-				console.error(error)
+				console.error(error);
 
 				toast('Error', {
-					description: 'Failed to create new expense'
-				})
+					description: 'Failed to create new expense',
+				});
 			} finally {
 				queryClient.setQueryData(
 					loadingCreateExpenseQueryOptions.queryKey,
-					{}
-				)
+					{},
+				);
 			}
-		}
-	})
+		},
+	});
 
 	return (
-		<div className="p-2">
+		<div className='p-2'>
 			<h2>Create Expense</h2>
 			<form
-				className="flex flex-col gap-y-4 max-w-xl m-auto"
+				className='flex flex-col gap-y-4 max-w-xl m-auto'
 				onSubmit={async (e) => {
-					e.preventDefault()
-					e.stopPropagation()
-					await form.handleSubmit()
+					e.preventDefault();
+					e.stopPropagation();
+					await form.handleSubmit();
 				}}
 			>
 				<form.Field
-					name="title"
+					name='title'
 					validators={{
-						onChange: createExpenseSchema.shape.title
+						onChange: createExpenseSchema.shape.title,
 					}}
 					children={(field) => (
 						<div>
@@ -108,9 +108,9 @@ function CreateExpense() {
 					)}
 				/>
 				<form.Field
-					name="amount"
+					name='amount'
 					validators={{
-						onChange: createExpenseSchema.shape.amount
+						onChange: createExpenseSchema.shape.amount,
 					}}
 					children={(field) => (
 						<div>
@@ -120,7 +120,7 @@ function CreateExpense() {
 								name={field.name}
 								value={field.state.value}
 								onBlur={field.handleBlur}
-								type="number"
+								type='number'
 								onChange={(e) =>
 									field.handleChange(e.target.value)
 								}
@@ -136,23 +136,23 @@ function CreateExpense() {
 					)}
 				/>
 				<form.Field
-					name="date"
+					name='date'
 					validators={{
-						onChange: createExpenseSchema.shape.date
+						onChange: createExpenseSchema.shape.date,
 					}}
 					children={(field) => (
-						<div className="self-center">
+						<div className='self-center'>
 							<Calendar
-								mode="single"
+								mode='single'
 								selected={new Date(field.state.value)}
 								onSelect={(date) =>
 									field.handleChange(
 										date
 											? date.toLocaleDateString('en-CA') // hacky solution, stealing canadian time format YYYY-MM-DD
-											: ''
+											: '',
 									)
 								}
-								className="rounded-md border"
+								className='rounded-md border'
 							/>
 							{field.state.meta.isTouched &&
 							field.state.meta.errors.length ? (
@@ -168,8 +168,8 @@ function CreateExpense() {
 					selector={(state) => [state.canSubmit, state.isSubmitting]}
 					children={([canSubmit, isSubmitting]) => (
 						<Button
-							type="submit"
-							className="mt-4"
+							type='submit'
+							className='mt-4'
 							disabled={!canSubmit}
 						>
 							{isSubmitting ? '...' : 'Create Expense'}
@@ -178,5 +178,5 @@ function CreateExpense() {
 				/>
 			</form>
 		</div>
-	)
+	);
 }

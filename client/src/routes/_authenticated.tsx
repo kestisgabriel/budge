@@ -1,41 +1,41 @@
-import { createFileRoute, Outlet } from '@tanstack/react-router'
-import { userQueryOptions } from '@/lib/api'
-import { Button } from '@/components/ui/button'
+import { createFileRoute, Outlet } from '@tanstack/react-router';
+import { userQueryOptions } from '@/lib/api';
+import { Button } from '@/components/ui/button';
 
 const Login = () => {
 	return (
-		<div className="flex flex-col gap-y-2 items-center">
+		<div className='flex flex-col gap-y-2 items-center'>
 			<p>Log in or register to use the app.</p>
-			<Button asChild className="my-4">
-				<a href="/api/login">Login</a>
+			<Button asChild className='my-4'>
+				<a href='/api/login'>Login</a>
 			</Button>
-			<Button asChild className="my-4">
-				<a href="/api/register">Register</a>
+			<Button asChild className='my-4'>
+				<a href='/api/register'>Register</a>
 			</Button>
 		</div>
-	)
-}
+	);
+};
 
 const Component = () => {
-	const { user } = Route.useRouteContext()
+	const { user } = Route.useRouteContext();
 	if (!user) {
-		return <Login />
+		return <Login />;
 	}
 
-	return <Outlet />
-}
+	return <Outlet />;
+};
 
 export const Route = createFileRoute('/_authenticated')({
 	beforeLoad: async ({ context }) => {
-		const queryClient = context.queryClient
+		const queryClient = context.queryClient;
 
 		try {
-			const data = await queryClient.fetchQuery(userQueryOptions)
-			return data
+			const data = await queryClient.fetchQuery(userQueryOptions);
+			return data;
 		} catch (e) {
-			console.error('Error fetching user', e)
-			return { user: null }
+			console.error('Error fetching user', e);
+			return { user: null };
 		}
 	},
-	component: Component
-})
+	component: Component,
+});
