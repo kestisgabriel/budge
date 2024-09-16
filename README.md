@@ -1,12 +1,6 @@
 # BUDGE
 
-A compact and highly performant CSR SPA project for expense tracking.
-
-## Features
-
--   CRUD api
--   form validation
--   authenticated routes
+A compact and highly performant CSR SPA for productivity tools such as expense tracking, time management.
 
 ## Stack
 
