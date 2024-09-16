@@ -16,7 +16,7 @@
 		--secondary-foreground: 208 38% 53%;
 		--muted: 220 14% 85%;
 		--muted-foreground: 208 38% 53%;
-		--accent: 184 100% 42%;
+		--accent: 199 78% 55%;
 		--accent-foreground: 208 38% 53%;
 		--destructive: 0 84.2% 60.2%;
 		--destructive-foreground: 0 0% 98%;
@@ -54,6 +54,6 @@
 		@apply border-border;
 	}
 	body {
-		@apply bg-background text-foreground;
+		@apply bg-background text-foreground font-sans tracking-wider;
 	}
 }

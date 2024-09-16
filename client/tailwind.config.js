@@ -18,6 +18,12 @@ module.exports = {
 			},
 		},
 		extend: {
+			// fontFamily: {
+			// 	sans: ['"Expletus Sans"', 'sans-serif'],
+			// },
+			// letterSpacing: {
+			// 	wider: '0.02em', // 8% letter spacing
+			// },
 			colors: {
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
@@ -52,11 +58,10 @@ module.exports = {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))',
 				},
-				// Add custom colors
-				'baby-blue': '#DCF1FB',
-				'vibrant-turquoise': '#00D4CA',
-				'bright-blue': '#32AEE6',
-				'faded-sky-blue': '#B1C8E0',
+				// 'baby-blue': '#DCF1FB',
+				// 'vibrant-turquoise': '#00D4CA',
+				// 'bright-blue': '#32AEE6',
+				// 'faded-sky-blue': '#B1C8E0',
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
