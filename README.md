@@ -4,15 +4,14 @@ A compact SPA for expense tracking.
 
 ## Stack
 
--   TypeScript // language
--   Vite + React // client bundler & framework
--   Bun + Hono // server-side runtime & framework
--   PostgreSQL + Neon + Drizzle // database & ORM
--   React Query // state
--   TailwindCSS + shadcn/ui // user interface styling
--   Kinde // user auth
--   Zod + TanStack Form // form validation
--   TanStack Router // client-side routing
+-   TypeScript, React, Vite
+-   Bun + Hono
+-   PostgreSQL + Neon + Drizzle
+-   React Query
+-   TailwindCSS + shadcn/ui
+-   Kinde
+-   Zod + TanStack Form
+-   TanStack Router
 
 ## Setup & run the application
 
