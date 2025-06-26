@@ -1,6 +1,6 @@
 # BUDGE
 
-A compact and highly performant CSR SPA for productivity tools such as expense tracking, time management.
+A compact SPA for expense tracking.
 
 ## Stack
 
@@ -9,7 +9,7 @@ A compact and highly performant CSR SPA for productivity tools such as expense t
 -   Bun + Hono // server-side runtime & framework
 -   PostgreSQL + Neon + Drizzle // database & ORM
 -   React Query // state
--   TailwindCSS + shadcn // user interface styling
+-   TailwindCSS + shadcn/ui // user interface styling
 -   Kinde // user auth
 -   Zod + TanStack Form // form validation
 -   TanStack Router // client-side routing
@@ -20,7 +20,8 @@ A compact and highly performant CSR SPA for productivity tools such as expense t
 -   _in root directory_: `bun dev` - run server
 -   _in /client directory_: `bun dev` - run client
 
-Authentication and data persistance beyond client-side storage is dependant on environment variables retrieved from Kinde and Drizzle - and will not work when running the app locally.
+_IMPORTANT_
+Authentication and data persistance beyond client-side storage is currently dependant on API Keys from Kinde, Drizzle and Neon stored in environment variables. That functionality will not work when running the app locally, unless you store your own keys in a .env at root.
 
 ## Updating the database
 
@@ -29,8 +30,3 @@ Authentication and data persistance beyond client-side storage is dependant on e
 `bun migrate.ts` - runs the migration file
 
 `bunx drizzle-kit studio` - runs the ORM DB GUI locally
-
-## Contributing
-
-`bun run c` - QoL shell script that prompts for a commit message before commiting.
-Shorthand for `git add . && git commit -m $commit_message`
