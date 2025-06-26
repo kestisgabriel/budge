@@ -16,11 +16,11 @@ A compact SPA for expense tracking.
 ## Setup & run the application
 
 -   `bun i && cd client && bun i` - ensure packages are up to date
--   _in root directory_: `bun dev` - run server
--   _in /client directory_: `bun dev` - run client
+-   in root: `bun dev` - run server
+-   in ./client: `bun dev` - run client
 
-_IMPORTANT_
-Authentication and data persistance beyond client-side storage is currently dependant on API Keys from Kinde, Drizzle and Neon stored in environment variables. That functionality will not work when running the app locally, unless you store your own keys in a .env at root.
+## Environment variables
+Authentication and data persistance beyond client-side storage is currently dependant on API Keys from Kinde, Drizzle and Neon stored in .env. That functionality will not work when running the app locally, unless you store your own keys in .env at root.
 
 ## Updating the database
 
